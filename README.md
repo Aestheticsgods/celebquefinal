@@ -4,9 +4,9 @@ A modern content creation platform built with Next.js, where creators can share 
 
 ## Prerequisites
 
-- Node.js 18+ 
+- Node.js 20+ 
 - npm or yarn
-- PostgreSQL (or any database supported by Prisma)
+- MySQL 8+ (Prisma)
 
 ## Getting Started
 
@@ -25,11 +25,19 @@ npm install
 
 ### 3. Setup Environment Variables
 
-Create a `.env.local` file in the root directory with the following variables:
+Create a `.env` file in the root directory with the required variables.
+
+You can start from:
+
+```bash
+cp .env.example .env
+```
+
+Minimal required for local/dev:
 
 ```env
 # Database
-DATABASE_URL="postgresql://user:password@localhost:5432/celebque"
+DATABASE_URL="mysql://user:password@localhost:3306/celebque"
 
 # NextAuth
 NEXTAUTH_URL="http://localhost:3000"
@@ -53,10 +61,11 @@ openssl rand -base64 32
 npx prisma migrate dev --name init
 ```
 
-This command will:
-- Create the database
-- Apply all migrations
-- Generate Prisma Client
+For production, use:
+
+```bash
+npm run db:migrate
+```
 
 #### Seed the Database (Optional)
 
@@ -128,7 +137,7 @@ This project uses [NextAuth.js](https://next-auth.js.org/) for authentication wi
 
 ## Database
 
-The project uses [Prisma](https://www.prisma.io/) ORM with PostgreSQL. Key features:
+The project uses [Prisma](https://www.prisma.io/) ORM with MySQL. Key features:
 - Type-safe database queries
 - Automatic migrations
 - Database studio for visualization
@@ -156,9 +165,14 @@ npx prisma format
 ## Build for Production
 
 ```bash
+npm run db:migrate
 npm run build
 npm start
 ```
+
+## Hostinger VPS Deployment
+
+See full production instructions in [DEPLOY_HOSTINGER.md](DEPLOY_HOSTINGER.md).
 
 ## Learn More
 
@@ -170,3 +184,4 @@ npm start
 ## License
 
 MIT
+# celebque-akhirmakayn
